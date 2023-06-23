@@ -1,0 +1,13 @@
+{{ define "main" }}
+  <main class="container">
+    <h1>{{ .Title }}</h1>
+
+    <p>{{ .Description }}</p>
+
+    {{ partial "image" (dict
+      "src" .Params.image
+    ) }}
+
+    {{ .Content }}
+  </main>
+{{ end }}

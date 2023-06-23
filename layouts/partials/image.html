@@ -1,0 +1,40 @@
+{{ $src := .src }}
+
+<!-- get Cloudinary base url and common transofrmations from site settings (hugo.toml) -->
+{{ $cldUrl := site.Params.cldUrl }}
+{{ $cldTransform := site.Params.cldTransform }}
+
+<!-- check if image is hosted on Cloudinary -->
+{{ $isCld := hasPrefix $src $cldUrl }}
+
+{{ if $isCld }}
+  <!-- get asset id from the url -->
+  {{ $relSrc := replace $src $cldUrl "" }}
+
+  <!-- set width if specified, otherwise set it to auto -->
+  {{ $cldWidth := cond (ne .width nil) (print "w_" .width ",") ("w_auto,") }}
+
+  <!-- set height if specified, otherwise leave it empty. -->
+  <!-- don't set to auto as w_auto & h_auto don't work together -->
+  {{ $cldHeight := cond (ne .height nil) (print "h_" .height ",") ("") }}
+
+  <!-- construct image url again with all transformations -->
+  {{ $src = print $cldUrl $cldWidth $cldHeight $cldTransform "/" $relSrc }}
+{{ end }}
+
+<!-- use data-src & cld-responsive class if image is on Cld to get the optimal size -->
+<!-- you need cloudinary-core-shrinkwrap for this to work (see baseof) -->
+<img
+  {{ if $isCld }}
+    data-src="{{ $src }}"
+    class="{{ .class }} cld-responsive"
+  {{ else }}
+    src="{{ $src }}"
+    class="{{ .class }}"
+    loading="lazy"
+  {{ end }}
+  alt="{{ .alt }}"
+  {{ with .style }} {{ printf "style=%q" . | safeHTMLAttr}} {{ end }}
+  {{ with .width }} width="{{ . }}" {{ end }}
+  {{ with .height }} height="{{ . }}" {{ end }}
+  {{ with .title }} title="{{ . }}" {{ end }}>

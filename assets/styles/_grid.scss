@@ -1,0 +1,117 @@
+// a simple grid library
+
+$columns-count: 12;
+
+:root {
+  --container-padding: clamp(20px, 6.25vw, 120px);
+  --content-width: calc(1680px + (2 * var(--container-padding)));
+  --container-margin: calc((100vw - var(--content-width)) / 2);
+  --grid-row-gap: clamp(1.25rem, 4vw, 2.5rem);
+  --grid-column-gap: clamp(0.75rem, 3vw, 1.25rem);
+
+  @include breakpoint-down("xxxl") {
+    --container-margin: 0;
+  }
+}
+
+.container {
+  padding-left: var(--container-padding);
+  padding-right: var(--container-padding);
+  width: 100%;
+  margin: 0 auto;
+
+  /* stylelint-disable-next-line selector-class-pattern */
+  &:not(.container--fluid) {
+    max-width: var(--content-width);
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat($columns-count, minmax(0, 1fr));
+  grid-gap: var(--grid-row-gap) var(--grid-column-gap);
+
+  &.no-gap {
+    grid-gap: 0;
+  }
+
+  &.no-row-gap {
+    grid-row-gap: 0;
+  }
+
+  &.no-column-gap {
+    grid-column-gap: 0;
+  }
+
+  &.align-items-center {
+    align-items: center;
+  }
+
+  &.justify-items-center {
+    justify-items: center;
+  }
+
+  &.align-items-end {
+    align-items: end;
+  }
+}
+
+@for $i from 0 through $columns-count {
+  .col-#{$i} {
+    grid-column-end: span #{$i};
+  }
+
+  .order-#{$i} {
+    order: #{$i};
+  }
+
+  .offset-#{$i} {
+    grid-column-start: #{$i + 1};
+  }
+}
+
+@each $key, $value in $breakpoints {
+  @include breakpoint-up($key) {
+    @for $i from 0 through $columns-count {
+      .col-#{$key}-#{$i} {
+        grid-column-end: span #{$i};
+      }
+
+      .order-#{$key}-#{$i} {
+        order: #{$i};
+      }
+
+      .offset-#{$key}-#{$i} {
+        grid-column-start: #{$i + 1};
+      }
+    }
+
+    .hide-#{$key}-up {
+      display: none;
+    }
+
+    .no-padding-#{$key}-up {
+      padding: 0;
+    }
+
+    .no-margin-#{$key}-up {
+      margin: 0;
+    }
+  }
+
+  @include breakpoint-down($key) {
+    @for $i from 0 through $columns-count {
+      .hide-#{$key}-down {
+        display: none;
+      }
+
+      .no-padding-#{$key}-down {
+        padding: 0;
+      }
+
+      .no-margin-#{$key}-down {
+        margin: 0;
+      }
+    }
+  }
+}

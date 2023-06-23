@@ -1,0 +1,59 @@
+local_backend: true
+
+backend:
+  name: git-gateway
+  branch: main
+
+display_url: https://hugo-cloudinary-decap-demo.netlify.app/
+site_url: https://hugo-cloudinary-decap-demo.netlify.app/
+logo_url: /media/logo.svg
+media_folder: /static/media # required even if using Cloudinary
+# public_folder: /media
+
+media_library:
+  name: cloudinary
+  config:
+    cloud_name: CLD_CLOUD_NAME
+    api_key: CLD_API_KEY
+
+aliases:
+  - &TITLE {name: title, label: Title, widget: string}
+  - &DESCRIPTION {name: description, label: Description, widget: text, required: false}
+  - &BODY {name: body, label: Body, widget: markdown}
+  - &IMAGE {name: image, label: Image, widget: image}
+  - &VISIBLE_IN_CMS {name: visibleInCMS, widget: hidden, default: true}
+
+collections:
+  - name: blog
+    label: Blog
+    label_singular: post
+    folder: content/blog
+    create: true
+    filter: {field: visibleInCMS, value: true}
+    editor:
+      preview: false
+    fields: [
+      *TITLE,
+      *DESCRIPTION,
+      *IMAGE,
+      *BODY,
+      *VISIBLE_IN_CMS,
+    ]
+
+  - name: pages
+    label: Pages
+    format: yaml-frontmatter
+    editor:
+      preview: false
+    files: [
+      {label: Home, name: home, file: content/_index.md, fields: [
+        *TITLE,
+        *DESCRIPTION,
+        *IMAGE,
+        *BODY,
+      ]},
+      {label: Blog list, name: blog-list, file: content/blog/_index.md, fields: [
+        *TITLE,
+        *DESCRIPTION,
+      ]},
+    ]

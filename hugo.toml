@@ -1,0 +1,22 @@
+languageCode = 'en-us'
+title = 'Hugo Cloudinary Decap Demo'
+
+[params]
+cldUrl = "https://res.cloudinary.com/CLD_CLOUD_NAME/image/upload/"
+cldTransform = "c_fill,g_auto,q_auto,dpr_auto/f_auto"
+
+# Also defined in breakpoints.scss to use in css
+[params.breakpoints]
+xs = 576
+sm = 768
+md = 992
+lg = 1200
+xl = 1440
+xxl = 1920
+
+[markup]
+
+[markup.goldmark]
+
+[markup.goldmark.renderer]
+unsafe = true

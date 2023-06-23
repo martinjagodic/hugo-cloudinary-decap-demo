@@ -1,0 +1,7 @@
+public
+resources
+node_modules
+.DS_Store
+.netlify
+.env
+.hugo_build.lock

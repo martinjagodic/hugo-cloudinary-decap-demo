@@ -1,0 +1,28 @@
+{{ define "main" }}
+  <main class="container">
+    <h1>{{ .Title }}</h1>
+
+    <p>{{ .Description }}</p>
+
+    {{ partial "image" (dict
+      "src" .Params.image
+    ) }}
+
+    {{ .Content }}
+
+    <div class="grid">
+      {{ range .Pages }}
+        <article class="col-6 col-md-4 col-xxl-3">
+          <h2><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
+
+          {{ partial "image" (dict
+            "src" .Params.image
+          ) }}
+          
+          <p>{{ .Description }}</p>
+          <a href="{{ .Permalink }}">Read more</a>
+        </article>
+      {{ end }}
+    </div>
+  </main>
+{{ end }}

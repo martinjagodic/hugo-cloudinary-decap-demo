@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ .Site.Title }}</title>
+
+  {{ $options := dict "targetPath" "styles/style.css" }}
+  {{ $scss := resources.Get "styles/style.scss" }}
+  {{ $style := $scss | resources.ExecuteAsTemplate "style-parsed.scss" . | toCSS $options }}
+  
+  <link rel="stylesheet" href="{{ $style.RelPermalink }}">
+</head>
+
+<body>
+  {{ partial "header" . }}
+
+  {{ template "main" . }}
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cloudinary-core/2.13.0/cloudinary-core-shrinkwrap.min.js" integrity="sha512-+3Q2D316t2nH2ibAtF3YBnV/yz4kQvL2H0Kzvb2HYxJOsRCP6HGPwe4dpXTVtGjdv/ds3Av+HE6Se1n0Hjt0Xg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script>
+    var cl = cloudinary.Cloudinary.new({cloud_name: 'CLD_CLOUD_NAME'})
+    cl.config({
+      responsive_use_breakpoints: 'true'
+    })
+    cl.responsive()
+  </script>
+</body>
+</html>
