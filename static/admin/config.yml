@@ -4,8 +4,8 @@ backend:
   name: git-gateway
   branch: main
 
-display_url: https://hugo-cloudinary-decap-demo.netlify.app/
-site_url: https://hugo-cloudinary-decap-demo.netlify.app/
+display_url: http://localhost:1313
+site_url: http://localhost:1313/
 logo_url: /media/logo.svg
 media_folder: /static/media # required even if using Cloudinary
 # public_folder: /media
@@ -28,6 +28,7 @@ collections:
     label: Blog
     label_singular: post
     folder: content/blog
+    preview_path: blog/{{slug}}
     create: true
     filter: {field: visibleInCMS, value: true}
     editor:
@@ -52,7 +53,7 @@ collections:
         *IMAGE,
         *BODY,
       ]},
-      {label: Blog list, name: blog-list, file: content/blog/_index.md, fields: [
+      {label: Blog list, name: blog-list, file: content/blog/_index.md, preview_path: blog, fields: [
         *TITLE,
         *DESCRIPTION,
       ]},
