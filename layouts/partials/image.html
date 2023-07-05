@@ -15,7 +15,6 @@
   {{ $cldWidth := cond (ne .width nil) (print "w_" .width ",") ("w_auto,") }}
 
   <!-- set height if specified, otherwise leave it empty. -->
-  <!-- don't set to auto as w_auto & h_auto don't work together -->
   {{ $cldHeight := cond (ne .height nil) (print "h_" .height ",") ("") }}
 
   <!-- construct image url again with all transformations -->
