@@ -16,10 +16,12 @@
   {{ partial "header" . }}
 
   {{ template "main" . }}
-  
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/cloudinary-core/2.13.0/cloudinary-core-shrinkwrap.min.js" integrity="sha512-+3Q2D316t2nH2ibAtF3YBnV/yz4kQvL2H0Kzvb2HYxJOsRCP6HGPwe4dpXTVtGjdv/ds3Av+HE6Se1n0Hjt0Xg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <br>
+
+  <!-- sets optimal width for assets with cld-responsive class -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cloudinary-core/2.13.0/cloudinary-core-shrinkwrap.min.js"></script>
   <script>
-    var cl = cloudinary.Cloudinary.new({cloud_name: 'CLD_CLOUD_NAME'})
+    var cl = cloudinary.Cloudinary.new({cloud_name: 'poslovnimediji'})
     cl.config({
       responsive_use_breakpoints: 'true'
     })

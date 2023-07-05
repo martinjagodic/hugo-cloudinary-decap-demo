@@ -4,10 +4,6 @@
 
     <p>{{ .Description }}</p>
 
-    {{ partial "image" (dict
-      "src" .Params.image
-    ) }}
-
     {{ .Content }}
 
     <div class="grid">
